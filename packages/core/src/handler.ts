@@ -21,6 +21,10 @@ export default function handler(
     return {
       body,
       statusCode,
+      headers: { // Perfect example of handler shit. Do not want to bload all lambdas with CORS
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true,
+      },
     };
   };
 }

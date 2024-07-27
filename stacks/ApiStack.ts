@@ -19,6 +19,9 @@ export function ApiStack({stack}: StackContext) {
             "DELETE /notes/{id}": "packages/functions/src/delete.main",
             "POST /billing": "packages/functions/src/billing.main",
         },
+        cors: {
+            allowMethods: ["GET"],
+        },
     });
     // Print/show API in outputs
     stack.addOutputs({
