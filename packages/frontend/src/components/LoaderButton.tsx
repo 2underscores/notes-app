@@ -15,6 +15,7 @@ export default function LoaderButton({
       {...props}
     >
       {isLoading && <BsArrowRepeat className="spinning" />}
+      {/* If not include below, then don't include the contents from the parent (Login text) */}
       {props.children}
     </Button>
   );
