@@ -7,6 +7,7 @@ import { AppContext, AppContextType } from "./lib/contextLib";
 import { useState, useEffect } from "react";
 import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
+import { onError } from "./lib/errorLib.ts";
 
 
 //  Bootstrap spacing utility (like mb-# -margin bottom and py-# padding vertical (y))
@@ -27,7 +28,7 @@ function App() {
       userHasAuthenticated(true);
     } catch (e) {
       if (e !== "No current user") {
-        alert(e);
+        onError(e);
       }
     }
     setIsAuthenticating(false);
