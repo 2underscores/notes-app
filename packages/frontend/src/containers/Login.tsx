@@ -8,23 +8,27 @@ import { useNavigate } from "react-router-dom";
 // import Button from "react-bootstrap/Button";
 import LoaderButton from "../components/LoaderButton";
 import { onError } from "../lib/errorLib";
+import { useFormFields } from "../lib/hooksLib";
 
 export default function Login() {
+  const [fields, handleFieldChange] = useFormFields({
+    email: "",
+    password: "",
+  });
+  function validateForm() {
+    return fields.email.length > 0 && fields.password.length > 0;
+  }
+
   const { userHasAuthenticated } = useAppContext();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const nav = useNavigate();
 
-  function validateForm() {
-    return email.length > 0 && password.length > 0;
-  }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(true);
     try {
-      await Auth.signIn(email, password);
+      await Auth.signIn(fields.email, fields.password);
       userHasAuthenticated(true);
       nav("/");
     } catch (error) {
@@ -44,8 +48,8 @@ export default function Login() {
               autoFocus
               size="lg"
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={fields.email}
+              onChange={handleFieldChange} // {(e) => setEmail(e.target.value)}
             />
           </Form.Group>
           <Form.Group controlId="password">
@@ -53,8 +57,8 @@ export default function Login() {
             <Form.Control
               size="lg"
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={fields.password} // ={} is embed JS inside JSX. JSX specific syntax
+              onChange={handleFieldChange}
             />
           </Form.Group>
           <LoaderButton
