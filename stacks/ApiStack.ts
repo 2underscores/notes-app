@@ -5,6 +5,7 @@ export function ApiStack({stack}: StackContext) {
     const {table} = use(StorageStack);
     const api = new Api(stack, 'Api', {
         defaults: {
+            authorizer: 'iam',
             function: {
                 bind: [table], // TODO: Research bind. Just IAM?
             },
@@ -26,4 +27,3 @@ export function ApiStack({stack}: StackContext) {
         api,
     }
 }
-
