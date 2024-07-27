@@ -5,11 +5,13 @@ import Button from "react-bootstrap/Button";
 import "./Login.css";
 import { Auth } from "aws-amplify";
 import { useAppContext } from "../lib/contextLib";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const { userHasAuthenticated } = useAppContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const nav = useNavigate();
 
   function validateForm() {
     return email.length > 0 && password.length > 0;
@@ -17,20 +19,19 @@ export default function Login() {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
+  
     try {
-        await Auth.signIn(email, password);
-        userHasAuthenticated(true);
+      await Auth.signIn(email, password);
+      userHasAuthenticated(true);
+      nav("/");
     } catch (error) {
-        // Prints the full error
-        console.error(error);
-        if (error instanceof Error) {
-            alert(error.message);
-        } else {
-            alert(String(error));
-        }
+      if (error instanceof Error) {
+        alert(error.message);
+      } else {
+        alert(String(error));
+      }
     }
-}
+  }
 
   return (
     <div className="Login">

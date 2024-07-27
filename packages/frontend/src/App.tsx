@@ -6,6 +6,7 @@ import "./App.css";
 import { AppContext, AppContextType } from "./lib/contextLib";
 import { useState, useEffect } from "react";
 import { Auth } from "aws-amplify";
+import { useNavigate } from "react-router-dom";
 
 
 //  Bootstrap spacing utility (like mb-# -margin bottom and py-# padding vertical (y))
@@ -13,6 +14,7 @@ import { Auth } from "aws-amplify";
 function App() {
   const [isAuthenticated, userHasAuthenticated] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(true);
+  const nav = useNavigate();
 
   useEffect(() => {
     onLoad();
@@ -34,6 +36,7 @@ function App() {
   async function handleLogout() {
     await Auth.signOut();
     userHasAuthenticated(false);
+    nav("/login");
   }
 
   // Conditional return like this is a bit fucked. Load auth sync blocks full app loading.
