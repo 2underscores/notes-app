@@ -19,10 +19,13 @@ importers:
         version: 10.3.0
       sst:
         specifier: ^2.43.4
-        version: 2.43.4(@aws-sdk/client-sso-oidc@3.616.0(@aws-sdk/client-sts@3.616.0(aws-crt@1.21.3))(aws-crt@1.21.3))(aws-crt@1.21.3)
+        version: 2.43.4(@aws-sdk/client-sso-oidc@3.614.0(@aws-sdk/client-sts@3.614.0(aws-crt@1.21.3))(aws-crt@1.21.3))(aws-crt@1.21.3)
       typescript:
         specifier: ^5.5.3
         version: 5.5.3
+      vitest:
+        specifier: ^2.0.3
+        version: 2.0.3(@types/node@20.14.11)
 
   packages/core:
     dependencies:
@@ -72,7 +75,7 @@ importers:
         version: 20.14.11
       sst:
         specifier: ^2.43.4
-        version: 2.43.4(@aws-sdk/client-sso-oidc@3.614.0(@aws-sdk/client-sts@3.614.0(aws-crt@1.21.3))(aws-crt@1.21.3))(aws-crt@1.21.3)
+        version: 2.43.4(@aws-sdk/client-sso-oidc@3.616.0(@aws-sdk/client-sts@3.616.0(aws-crt@1.21.3))(aws-crt@1.21.3))(aws-crt@1.21.3)
       vitest:
         specifier: ^2.0.3
         version: 2.0.3(@types/node@20.14.11)
