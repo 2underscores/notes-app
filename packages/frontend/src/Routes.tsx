@@ -1,11 +1,13 @@
 import { Route, Routes } from "react-router-dom";
+import AuthenticatedRoute from "./components/AuthenticatedRoute.tsx";
+import UnauthenticatedRoute from "./components/UnauthenticatedRoute.tsx";
 import Home from "./containers/Home.tsx";
-import NotFound from "./containers/NotFound.tsx";
 import Login from "./containers/Login.tsx";
 import Signup from "./containers/Signup.tsx";
 import NewNote from "./containers/NewNote.tsx";
-import AuthenticatedRoute from "./components/AuthenticatedRoute.tsx";
-import UnauthenticatedRoute from "./components/UnauthenticatedRoute.tsx";
+import Notes from "./containers/Notes.tsx";
+import NotFound from "./containers/NotFound.tsx";
+
 
 export default function Links() {
     // return (
@@ -52,14 +54,14 @@ export default function Links() {
                     </AuthenticatedRoute>
                 }
             />
-            {/* <Route
+            <Route
                 path="/notes/:id"
                 element={
                     <AuthenticatedRoute>
                         <Notes />
                     </AuthenticatedRoute>
                 }
-            /> */}
+            />
             <Route path="*" element={<NotFound />} />;
         </Routes>
     );
