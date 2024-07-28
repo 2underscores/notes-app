@@ -1,10 +1,11 @@
 import { Api, Config, StackContext, use } from "sst/constructs";
 import { StorageStack } from "./StorageStack";
 
-export function ApiStack({stack}: StackContext) {
-    const {table} = use(StorageStack);
+export function ApiStack({ stack, app }: StackContext) {
+    const { table } = use(StorageStack);
     const STRIPE_SECRET_KEY = new Config.Secret(stack, "STRIPE_SECRET_KEY");
     const api = new Api(stack, 'Api', {
+        customDomain: app.stage.startsWith("prod") ? `api-notes-${app.stage}.not-localhost.com` : undefined,
         defaults: {
             authorizer: 'iam',
             function: {
@@ -26,8 +27,8 @@ export function ApiStack({stack}: StackContext) {
     });
     // Print/show API in outputs
     stack.addOutputs({
-        ApiEndoint: api.url,
-    })
+        ApiEndpoint: api.customDomainUrl || api.url,
+    });
     // Make API available for other resources
     return {
         api,

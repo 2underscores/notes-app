@@ -1,0 +1,10 @@
+{
+  "hosted-zone:account=953428120280:domainName=not-localhost.com:region=ap-southeast-2": {
+    "Id": "/hostedzone/Z28WGI13ACG53O",
+    "Name": "not-localhost.com."
+  },
+  "hosted-zone:account=953428120280:domainName=notes.not-localhost.com:region=ap-southeast-2": {
+    "Id": "/hostedzone/Z0637820CCQ8RPY3RSTV",
+    "Name": "notes.not-localhost.com."
+  }
+}
