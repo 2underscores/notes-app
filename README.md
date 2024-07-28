@@ -1,4 +1,6 @@
 # Jez Notes
+[![Seed Status](https://api.seed.run/2underscores/notes-app/stages/production/build_badge)](https://console.seed.run/2underscores/notes-app)
+[![Seed Status](https://api.seed.run/2underscores/notes-app/stages/dev529/build_badge)](https://console.seed.run/2underscores/notes-app)
 
 Created using the [SST Guide](https://sst.dev/guide.html). This guide been updated (to [SST Ion](https://ion.sst.dev/docs/)) and for reference, used the older guide that uses SST v2.
 
