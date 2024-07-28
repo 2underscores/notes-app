@@ -1,11 +1,22 @@
 import { Api, Config, StackContext, use } from "sst/constructs";
 import { StorageStack } from "./StorageStack";
 
+function customApiDomain(app: StackContext["app"]) {
+    const hostedZone = 'not-localhost.com';
+    let apiDomain: undefined | string = undefined;
+    if (app.stage === "production") {
+        apiDomain = `notes-api.${hostedZone}`;
+    } else if (app.stage.startsWith("pr")) { // PR branch i think
+        apiDomain = `notes-api-${app.stage}.${hostedZone}`;
+    }
+    return apiDomain;
+}
+
 export function ApiStack({ stack, app }: StackContext) {
     const { table } = use(StorageStack);
     const STRIPE_SECRET_KEY = new Config.Secret(stack, "STRIPE_SECRET_KEY");
     const api = new Api(stack, 'Api', {
-        customDomain: app.stage.startsWith("prod") ? `api-notes-${app.stage}.not-localhost.com` : undefined,
+        customDomain: customApiDomain(app),
         defaults: {
             authorizer: 'iam',
             function: {

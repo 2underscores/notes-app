@@ -1,7 +1,26 @@
-import { StackContext, StaticSite, use } from "sst/constructs";
+import { StackContext, StaticSite, use, StaticSiteDomainProps } from "sst/constructs";
 import { ApiStack } from "./ApiStack";
 import { AuthStack } from "./AuthStack";
 import { StorageStack } from "./StorageStack";
+
+function customDomainProps(app: StackContext["app"]): undefined | StaticSiteDomainProps {
+  const hostedZone = 'not-localhost.com';
+  if (app.stage === "production") { // "production" branch as SST configured to deploy with stack name = branch name for branch deploys.
+    return {
+      domainName: `notes.${hostedZone}`,
+      domainAlias: `www.notes.${hostedZone}`,
+      hostedZone: hostedZone,
+    }
+  } else if (app.stage.startsWith("pr-")) { // From SST - "By default, PRs are deployed to a stage with the name "pr-<number>"."
+    return {
+      domainName: `notes-${app.stage}.${hostedZone}`,
+      domainAlias: `www.notes-${app.stage}.${hostedZone}`,
+      hostedZone: hostedZone,
+    }
+  } else {
+    return undefined;
+  }
+}
 
 export function FrontendStack({ stack, app }: StackContext) {
   const { api } = use(ApiStack);
@@ -10,12 +29,7 @@ export function FrontendStack({ stack, app }: StackContext) {
 
   // Define our React app
   const site = new StaticSite(stack, "ReactSite", {
-  customDomain: app.stage.startsWith("prod") ? 
-      {
-        domainName: `notes-${app.stage}.not-localhost.com`,
-        domainAlias: `www.notes-${app.stage}.not-localhost.com`,
-        hostedZone: "not-localhost.com",
-      } : undefined,
+   customDomain: customDomainProps(app),
     path: "packages/frontend",
     buildCommand: "pnpm run build",
     buildOutput: "dist",
