@@ -7,6 +7,7 @@ import Signup from "./containers/Signup.tsx";
 import NewNote from "./containers/NewNote.tsx";
 import Notes from "./containers/Notes.tsx";
 import NotFound from "./containers/NotFound.tsx";
+import Settings from "./containers/Settings.tsx";
 
 
 export default function Links() {
@@ -38,14 +39,14 @@ export default function Links() {
                     </UnauthenticatedRoute>
                 }
             />
-            {/* <Route
+            <Route
                 path="/settings"
                 element={
                     <AuthenticatedRoute>
                         <Settings />
                     </AuthenticatedRoute>
                 }
-            /> */}
+            />
             <Route
                 path="/notes/new"
                 element={
